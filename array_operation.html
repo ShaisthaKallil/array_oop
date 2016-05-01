@@ -1,0 +1,85 @@
+<head>
+<meta charset= "UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Method Consecutive Sum</title>
+
+</head>
+
+<!-- @ShaisthaKallil : shaistha@shaikallil.info : -->
+<!-- This program will find largest group sum from an array.  -->
+
+<body>
+
+	<script type = "text/javascript">
+	
+	//Declare Variables - array and group val
+	var myArray = [1,2,1,1,3,-3,5,-9,10];
+	var group = 3;
+	
+	//variable for calculation purpose
+	var sum = 0;
+	var ans = [];
+	var temp = [];
+	var pairs = myArray.length/group;
+	
+	//Check integer 
+	//Use for loop to find sum in terms of group and store sum in an array
+	if(pairs%1 ==0){
+		for(count = 0; count < pairs; count++){
+			temp = myArray.splice(0,group);
+			document.write(temp + "<br/>");
+			for(z = 0; z < 2; z++){
+				sum += temp[z];
+			}
+			ans[count] = sum;
+			sum = 0;
+			document.write(ans[count] +"<br/>");
+		}
+	}else{
+	   alert("Does not match");
+	   exit;
+	}
+	
+	//Prepare the sum array inorder to pass it as an argument to constructor
+	function myObj(){
+		      this.input = Array.prototype.slice.call(arguments);
+		}
+	
+	var arrPassCons = new myObj();
+	myObj.prototype.constructor.apply(arrPassCons,ans);
+	var arrObj = arrPassCons.input;
+	
+	
+	//Pass sum array and group val as arguments to constructor
+	function ArrLgSumIndex(myArray,groupVal){
+	    this.array = myArray;
+		this.group = groupVal;
+    }
+	
+	//Define properties for prototype obj of constructor
+	ArrLgSumIndex.prototype = {
+	    maximum:function(){
+			this.max= Math.max.apply(null,this.array);
+			return this.max;
+			},
+		index : function(){
+		    return this.array.indexOf(this.max)*this.group;
+		}
+	}
+	
+    //Create a object using sumarray and group value
+	var lgSumArr = new ArrLgSumIndex(arrObj,group);
+	
+	
+	//Print to screen largest sum and its start index from original array
+	document.write("Largest Sum: "+lgSumArr.maximum()+"<br/>");
+	document.write("Index : "+lgSumArr.index()+"<br/>");
+	
+	
+		
+	
+	</script>
+	
+</body>
+</html>
+	
